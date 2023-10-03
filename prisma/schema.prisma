@@ -9,3 +9,55 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+
+enum PRICE_TYPE {
+  REGULAR
+  PREMIUM
+}
+
+model Turf {
+  id Int @id @default(autoincrement())
+  name String
+  main_img String
+  description String
+  images String[]
+  open_time String
+  close_time String
+  slug String @unique
+  price_type PRICE_TYPE
+  location_id Int
+  location Location @relation(fields: [location_id],references: [id])
+  turf_type_id Int
+  turf_type TurfType @relation(fields: [turf_type_id],references: [id])
+  grounds Ground[]
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model Ground {
+  id Int @id @default(autoincrement())
+  name String
+  price String
+  description String
+  turf_id Int
+  turf Turf @relation(fields: [turf_id],references: [id])
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model Location {
+  id Int @id @default(autoincrement())
+  name String
+  turfs Turf[]
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model TurfType{
+  id Int @id @default(autoincrement())
+  name String
+  turfs Turf[]
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
