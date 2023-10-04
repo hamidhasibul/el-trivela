@@ -37,10 +37,11 @@ export default async function Home() {
     <>
       <main>
         <Header />
-
-        {turfs.map((turf) => (
-          <TurfCard turf={turf} />
-        ))}
+        <div className="py-3 px-36 mt-10 flex flex-wrap justify-center">
+          {turfs.map((turf) => (
+            <TurfCard key={turf.id} turf={turf} />
+          ))}
+        </div>
       </main>
     </>
   );

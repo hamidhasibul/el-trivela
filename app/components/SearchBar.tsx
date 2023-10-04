@@ -8,10 +8,11 @@ const SearchBar = () => {
   const [location, setLocation] = useState("");
 
   const handleSearch = (): void => {
-    if (location === "banana") return;
-
-    router.push(`/search`);
+    if (location === "") return;
+    router.push(`/search?city=${location.toLowerCase()}`);
+    setLocation("");
   };
+
   return (
     <>
       <div className="text-left text-lg py-3 m-auto flex justify-center">
